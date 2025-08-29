@@ -2,9 +2,10 @@ name: Build and Release Spring Boot JAR
 
 on:
   push:
-    tags:
-      - 'v*'  # Runs only when you push a tag like v1.0.0
-  workflow_dispatch: # Allows manual trigger
+    branches:
+      - main
+  workflow_dispatch:
+# Allows manual trigger
 
 jobs:
   build:
@@ -34,6 +35,9 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: manual-release
+          release_name: Manual Release
           files: target/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
